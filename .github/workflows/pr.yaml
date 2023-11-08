@@ -1,4 +1,4 @@
-name: Docker Build and Trivy Scan
+name: new-pr
 
 on:
   pull_request:
