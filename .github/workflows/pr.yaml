@@ -32,4 +32,6 @@ jobs:
 
       - name: Run Polaris scan of Chart
         run: |
-          polaris audit --helm-chart ./go-square-chart --helm-values ./go-square-chart/values.yaml --format=pretty
+          pwd
+          polaris audit --helm-chart ./go-square-chart/ --helm-values ./go-square-chart/values.yaml --format=pretty
+          
