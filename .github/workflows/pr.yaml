@@ -21,7 +21,9 @@ jobs:
       - name: Scan Docker image with Trivy
         run: |
           docker pull aquasec/trivy
-          docker run --rm -v $PWD:/workdir aquasec/trivy:latest image go-square:${{  github.ref_name }}
+          docker run --rm -v $PWD:/workdir \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          aquasec/trivy:latest image go-square:${{  github.ref_name }}
 
       - name: Install Polaris
         uses: fairwindsops/polaris/.github/actions/setup-polaris@391b802d4d17b0d88aca440b0b377105ef6bdef6
