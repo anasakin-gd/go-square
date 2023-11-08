@@ -3,7 +3,8 @@ name: new-commit
 on:
   push:
     branches:
-      - main 
+      - main
+      - app
 
 jobs:
   build-and-deploy:
