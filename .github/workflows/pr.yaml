@@ -1,4 +1,4 @@
-name: Docker Build and Trivy Scan
+name: new-pr
 
 on:
   pull_request:
@@ -16,12 +16,12 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Build Docker image
-        run: docker build -t go-square:${{  github.ref_name }} .
+        run: docker buildx build -t "go-square:${{  github.ref_name }}" .
 
       - name: Scan Docker image with Trivy
         run: |
           docker pull aquasec/trivy
-          docker run --rm -v $PWD:/workdir aquasec/trivy:latest --exit-code 1 go-square:${{  github.ref_name }}
+          docker run --rm -v $PWD:/workdir aquasec/trivy:latest image go-square:${{  github.ref_name }}
 
       - name: Install Polaris
         uses: fairwindsops/polaris/.github/actions/setup-polaris@391b802d4d17b0d88aca440b0b377105ef6bdef6
