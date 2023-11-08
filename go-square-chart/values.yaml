@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: nasakin/go-square
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.0"
+  tag: null
 
 
 serviceAccount:
@@ -27,13 +27,9 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
 
 service:
   type: ClusterIP

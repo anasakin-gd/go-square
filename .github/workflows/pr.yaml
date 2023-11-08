@@ -1,0 +1,34 @@
+name: Docker Build and Trivy Scan
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Build Docker image
+        run: docker build -t go-square:${{  github.ref_name }} .
+
+      - name: Scan Docker image with Trivy
+        run: |
+          docker pull aquasec/trivy
+          docker run --rm -v $PWD:/workdir aquasec/trivy:latest --exit-code 1 go-square:${{  github.ref_name }}
+
+      - name: Install Polaris
+        uses: fairwindsops/polaris/.github/actions/setup-polaris@391b802d4d17b0d88aca440b0b377105ef6bdef6
+        with:
+          version: 5.0.0
+
+      - name: Run Polaris scan of Chart
+        run: |
+          polaris audit --helm-chart ./go-square-chart/ --helm-values ./go-square-chart/values.yaml \
+          --format=pretty --upload-insights --cluster-name=my-cluster
