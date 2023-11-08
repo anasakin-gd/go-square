@@ -44,4 +44,6 @@ jobs:
       - name: Bump version in Helm Chart
         env: 
           GIT_TAG: ${{ steps.set_tag.outputs.tag }}
-        run: python ./scripts/helm-chart-tags.py
+        run: |
+          pip install -r requirements.txt 
+          python ./scripts/helm-chart-tags.py
