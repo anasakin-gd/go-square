@@ -16,7 +16,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Build Docker image
-        run: DOCKER_BUILDKIT=0 docker build -t go-square:${{  github.ref_name }} .
+        run: docker buildx build -t "go-square:${{  github.ref_name }}" .
 
       - name: Scan Docker image with Trivy
         run: |

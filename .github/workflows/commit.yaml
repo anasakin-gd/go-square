@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          DOCKER_BUILDKIT=0 docker build -t nasakin/go-square:${{  github.ref_name }}" .
+          docker buildx build -t "nasakin/go-square:${{  github.ref_name }}" .
           docker push nasakin/go-square:${{  github.ref_name }}"
 
       - name: Create Git tag
