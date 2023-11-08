@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  patch-version-bump:
     runs-on: ubuntu-latest
     permissions:
       contents: write
