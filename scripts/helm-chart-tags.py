@@ -9,7 +9,7 @@ original_file_path = "./charts/go-square-chart/Chart.yaml"
 temp_file_path = "./charts/go-square-chart/Chart_temp.yaml"
 # New version of the app is a new GIT_TAG env.var set via GHA workflow
 new_version = os.environ.get("GIT_TAG")
-print(new_version)
+print(f"GIT_TAG={new_version}\n")
 
 # Cut "v" in vX.X.X tag
 if new_version.startswith("v"):
@@ -18,6 +18,8 @@ if new_version.startswith("v"):
 # Open Chart.file
 with open(original_file_path) as f:
     y = yaml.safe_load(f)
+
+print(f"Previous Chart: {original_file_path}\n{y}!\n")
 
 # Get current version of the Chart
 current_version = y['version']
@@ -40,3 +42,8 @@ with open(temp_file_path, 'w') as temp_file:
 
 # Updating original Chart file
 os.replace(temp_file_path, original_file_path)
+
+with open(original_file_path) as f:
+    y = yaml.safe_load(f)
+
+print(f"Actual Chart: {original_file_path}\n{y}\n")
