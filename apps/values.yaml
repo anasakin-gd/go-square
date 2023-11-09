@@ -1,0 +1,10 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+
+source:
+  repoURL: git@gitlab.com:example/example.git
+  targetRevision: main
+  path: charts/go-square-chart/
+
+namespace: go-square

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: dev-apps
+description: A Helm chart to deploy go-square app to apps project
+
+type: application
+
+version: 1.0.0
+
+appVersion: 1.0.0
