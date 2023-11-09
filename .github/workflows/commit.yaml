@@ -14,14 +14,14 @@ jobs:
     steps:
       - name: Check out the code
         uses: actions/checkout@v3
+        
 
-      - name: Create Git tag
+      - name: Bump the tag
         id: set_tag
-        uses: anothrNick/github-tag-action@72cc9b65fd4cdd0de63b8dd7c098e1741ae0951a
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          DEFAULT_BUMP: patch
+        run: |
+          new_version=`git describe --tags --abbrev=0 | awk -F. '{OFS="."; $NF+=1; print $0}'`
+          echo "GIT_TAG=$(echo $new_version)" >> $GITHUB_ENV
+
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -31,8 +31,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker buildx build -t nasakin/go-square:${{ steps.set_tag.outputs.tag }} .
-          docker push nasakin/go-square:${{ steps.set_tag.outputs.tag }}
+          docker buildx build -t nasakin/go-square:${{ env.GIT_TAG }} .
+          docker push nasakin/go-square:${{ env.GIT_TAG }}
          
 
       - name: Install Python
@@ -42,7 +42,14 @@ jobs:
 
       - name: Bump version in Helm Chart
         env: 
-          GIT_TAG: ${{ steps.set_tag.outputs.tag }}
+          GIT_TAG: ${{ env.GIT_TAG }}
         run: |
           pip install -r ./scripts/requirements.txt 
           python ./scripts/helm-chart-tags.py
+      
+      - name: Push to origin
+        run: |
+          git config --global user.name 'Github Actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+          git tag -a ${{ env.GIT_TAG }} -m "Bump patch version"
+          git push origin ${{ env.GIT_TAG }}
