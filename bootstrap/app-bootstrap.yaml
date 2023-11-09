@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  source:
+    repoURL: https://github.com/anasakin-gd/go-square
+    targetRevision: app-of-apps
+    path: charts/go-square-chart
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
