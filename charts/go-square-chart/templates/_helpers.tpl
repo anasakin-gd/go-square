@@ -47,7 +47,7 @@ Selector labels
 */}}
 {{- define "go-square.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "go-square.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/instance: {{ include "go-square.name" . }}
 {{- end }}
 
 {{/*
