@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/anasakin-gd/go-square
     targetRevision: app-of-apps
-    path: apps/
+    path: chart/apps/
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
