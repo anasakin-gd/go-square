@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/anasakin-gd/go-square
-    targetRevision: app-of-apps
+    targetRevision: main
     path: charts/apps/
   destination:
     namespace: argocd
