@@ -28,12 +28,12 @@ current_version = y['version']
 match = re.match(r'(\d+\.\d+)\.(\d+)', current_version)
 major_minor_version, patch_version = match.groups()
 
-# Increasing Chart version
+# Increasing Chart's patch version by 1
 new_patch_version = int(patch_version) + 1
 new_chart_version = f"{major_minor_version}.{new_patch_version}"
 y['version'] = new_chart_version
 
-# Set appVersion
+# Set appVersion to new tag
 y['appVersion'] = new_version
 
 # Saving to temporary file
@@ -43,6 +43,7 @@ with open(temp_file_path, 'w') as temp_file:
 # Updating original Chart file
 os.replace(temp_file_path, original_file_path)
 
+# Print new content of Chart file
 with open(original_file_path) as f:
     y = yaml.safe_load(f)
 
