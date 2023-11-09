@@ -8,12 +8,17 @@ import (
 
 func main() {
 	r := gin.Default()
+	
+	r.GET("/", func(c *gin.Context) {
+		htmlString := "<html style='background-color: black;'><body><a href='/square?number=0' style='color: white;'>Go to the Square API</a></body></html>"
+		c.Writer.WriteString(htmlString)
+	})
 
 	r.GET("/square", func(c *gin.Context) {
 		numberParam := c.DefaultQuery("number", "0") // Default value is 0 if "number" is not provided
 		number, err := strconv.Atoi(numberParam)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input."})
 			return
 		}
 
