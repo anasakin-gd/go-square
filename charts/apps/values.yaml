@@ -3,7 +3,7 @@ spec:
     server: https://kubernetes.default.svc
 
 source:
-  repoURL: git@gitlab.com:example/example.git
+  repoURL: https://github.com/anasakin-gd/go-square
   targetRevision: main
   path: charts/go-square-chart/
 
