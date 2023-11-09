@@ -9,6 +9,7 @@ original_file_path = "./charts/go-square-chart/Chart.yaml"
 temp_file_path = "./charts/go-square-chart/Chart_temp.yaml"
 # New version of the app is a new GIT_TAG env.var set via GHA workflow
 new_version = os.environ.get("GIT_TAG")
+print(new_version)
 
 # Cut "v" in vX.X.X tag
 if new_version.startswith("v"):
