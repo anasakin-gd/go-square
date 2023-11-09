@@ -53,5 +53,6 @@ jobs:
         run: |
           git config --global user.name 'Github Actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
+          git add .
           git tag -a ${{ env.GIT_TAG }} -m "Bump patch version"
           git push origin ${{ env.GIT_TAG }}
