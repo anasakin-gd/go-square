@@ -7,7 +7,7 @@ COPY . .
 
 RUN go mod download
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /square
+RUN CGO_ENABLED=0 go build -o /square
 
 # Runtime image
 FROM alpine:latest

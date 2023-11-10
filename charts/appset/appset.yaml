@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset
+spec:
+  generators:
+  - list:
+      elements:
+        - appName: polaris
+          namespace: polaris
+          version: 5.16.0
+        - appName: goldilocks
+          namespace: goldilocks
+          version: 8.0.0
+  template:
+    metadata:
+      name: "{{appName}}"
+    spec:
+      project: apps
+      source:
+        chart: "{{appName}}"
+        targetRevision: "{{version}}"
+        repoURL: https://charts.fairwinds.com/stable
+      destination:
+        name: in-cluster
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
