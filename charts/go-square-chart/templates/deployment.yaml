@@ -18,6 +18,6 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ default printf "v%s".Chart.AppVersion .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.port }}
