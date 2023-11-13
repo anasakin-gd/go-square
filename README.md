@@ -5,7 +5,8 @@
 1. Minikube is installed
 2. [ArgoCD installed](https://argo-cd.readthedocs.io/en/stable/getting_started/#1-install-argo-cd)
 3. [VPA is installed](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#installation)  
-4. Labeling namespaces for Goldilocks. To do that use`kubectl label ns NAMESPACE_NAME goldilocks.fairwinds.com/enabled=true`
+4. Labeling namespaces for Goldilocks. To do that use  
+`kubectl label ns NAMESPACE_NAME goldilocks.fairwinds.com/enabled=true`
 5. Kubeconfig file is updated to work with your Minikube
 
 ## Deployment
