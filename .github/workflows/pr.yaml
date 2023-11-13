@@ -10,14 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the code of the source branch
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
+      # Building docker image
       - name: Build Docker image
         run: docker buildx build -t "go-square:${{  github.ref_name }}" .
-
+      
+      # Scan image with Trivy
       - name: Scan Docker image with Trivy
         run: |
           docker pull aquasec/trivy
@@ -25,11 +28,13 @@ jobs:
           -v /var/run/docker.sock:/var/run/docker.sock \
           aquasec/trivy:latest image go-square:${{  github.ref_name }}
 
+      # Installind Polaris
       - name: Install Polaris
         uses: fairwindsops/polaris/.github/actions/setup-polaris@391b802d4d17b0d88aca440b0b377105ef6bdef6
         with:
           version: 8.5.2
 
+      # Polaris scan of Chart
       - name: Run Polaris scan of Chart
         run: |
           polaris audit --helm-chart ./charts/go-square-chart/ --helm-values ./charts/go-square-chart/values.yaml --format=pretty
