@@ -22,7 +22,7 @@ func main() {
 			return
 		}
 
-		result := number * number
+		result := number * number * number
 		c.JSON(http.StatusOK, gin.H{"your_number": number, "square": result})
 	})
 
